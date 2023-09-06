@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string name;
+    public string species;
+    public int age;
+    public bool isHungry;
+    public string environment;
+
+    public virtual void MakeSound()
     {
-        
+        // To be implemented by child classes
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Eat()
     {
-        
+        // The be implemented by child classes
     }
 }
