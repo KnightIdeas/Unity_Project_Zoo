@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZooManager : MonoBehaviour
 {
+    // Names scriptable object
+    public AnimalNames animalNames;
     public Animal[] animals;
 
     // Start is called before the first frame update

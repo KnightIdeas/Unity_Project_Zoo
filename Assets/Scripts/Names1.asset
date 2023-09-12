@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c51f0bb70168aa4193133b91068bd41, type: 3}
+  m_Name: Names1
+  m_EditorClassIdentifier: 
+  names:
+  - Jerald
+  - Roland
+  - Tiffany
+  - Stella
+  - Miles
+  - Leo
+  - Bella
+  - Nora
+  - Oscar
+  - Lily
+  - Finn
+  - Zoe
+  - Charlie
+  - Ella
+  - Henry
+  - Sophia
+  - Max
+  - Ava
+  - Lucas
+  - Emma
+  - Liam
+  - Olivia
+  - Mason
+  - Aria
+  - Ethan
+  - Isabella
+  - Noah
+  - Mia
+  - Logan
+  - Amelia
