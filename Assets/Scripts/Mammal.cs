@@ -22,9 +22,9 @@ public class Mammal : Animal
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
 
     public void Hibernate()
