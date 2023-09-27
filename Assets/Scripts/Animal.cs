@@ -140,6 +140,7 @@ public class Animal : MonoBehaviour
     {
         // Halt all movement
         agent.isStopped = true;
+        
         // Play death animation
 
         // Play death sound

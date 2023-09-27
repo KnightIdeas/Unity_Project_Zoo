@@ -2,20 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ReptileType
+{
+    Lizard,
+    Snake
+}
+
 public class Reptile : Animal
 {
-    public bool hasScales;
+    public ReptileType type;
+
+    public override string AnimalType => type.ToString();
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        hasScales = true;
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
 
     public void Sunbathe()

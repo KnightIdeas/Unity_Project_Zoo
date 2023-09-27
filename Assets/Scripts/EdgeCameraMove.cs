@@ -11,64 +11,78 @@ public class EdgeCameraMove : MonoBehaviour
     public Vector2 xBoundary = new Vector2(-15, 15);
     public Vector2 zBoundary = new Vector2(-15, 15);
 
+    public bool isMovementEnabled = true;
+
     void Update()
     {
-        float mouseX = Input.mousePosition.x;
-        float mouseY = Input.mousePosition.y;
 
-        float moveX = 0;
-        float moveZ = 0;
-
-        // Ensure that the mouse is within the screen bounds
-        if (mouseX < 0 || mouseX > Screen.width || mouseY < 0 || mouseY > Screen.height)
+        if (!isMovementEnabled)
         {
-            return; // Exit the update loop if mouse is outside the window
+            return;
         }
 
-        // Check X-axis movement
-        if (mouseX < edgeBorder)
+        Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        if (!IsMouseWithinScreenBounds(mousePosition))
         {
-            moveX = Mathf.Lerp(-maxMoveSpeed, 0, mouseX / edgeBorder);
-        }
-        else if (mouseX > Screen.width - edgeBorder)
-        {
-            moveX = Mathf.Lerp(0, maxMoveSpeed, (mouseX - (Screen.width - edgeBorder)) / edgeBorder);
-        }
-        else if (mouseX >= edgeBorder && mouseX <= Screen.width * deadZoneSize)
-        {
-            moveX = -maxMoveSpeed;
-        }
-        else if (mouseX <= Screen.width - edgeBorder && mouseX >= Screen.width * (1 - deadZoneSize))
-        {
-            moveX = maxMoveSpeed;
+            return;
         }
 
-        // Check Z-axis movement
-        if (mouseY < edgeBorder)
+        Vector3 movement = new Vector3(
+            CalculateMovement(mousePosition.x, Screen.width, edgeBorder, deadZoneSize),
+            0,
+            CalculateMovement(mousePosition.y, Screen.height, edgeBorder, deadZoneSize)
+        );
+
+        ApplyMovement(movement);
+    }
+
+    private bool IsMouseWithinScreenBounds(Vector2 mousePosition)
+    {
+        return mousePosition.x >= 0 && mousePosition.x <= Screen.width && mousePosition.y >= 0 && mousePosition.y <= Screen.height;
+    }
+
+    private float CalculateMovement(float mouseCoord, float screenSize, float edgeBorder, float deadZoneSize)
+    {
+        float move = 0;
+
+        if (mouseCoord < edgeBorder)
         {
-            moveZ = Mathf.Lerp(-maxMoveSpeed, 0, mouseY / edgeBorder);
+            move = Mathf.Lerp(-maxMoveSpeed, 0, mouseCoord / edgeBorder);
         }
-        else if (mouseY > Screen.height - edgeBorder)
+        else if (mouseCoord > screenSize - edgeBorder)
         {
-            moveZ = Mathf.Lerp(0, maxMoveSpeed, (mouseY - (Screen.height - edgeBorder)) / edgeBorder);
+            move = Mathf.Lerp(0, maxMoveSpeed, (mouseCoord - (screenSize - edgeBorder)) / edgeBorder);
         }
-        else if (mouseY >= edgeBorder && mouseY <= Screen.height * deadZoneSize)
+        else if (mouseCoord >= edgeBorder && mouseCoord <= screenSize * deadZoneSize)
         {
-            moveZ = -maxMoveSpeed;
+            move = -maxMoveSpeed;
         }
-        else if (mouseY <= Screen.height - edgeBorder && mouseY >= Screen.height * (1 - deadZoneSize))
+        else if (mouseCoord <= screenSize - edgeBorder && mouseCoord >= screenSize * (1 - deadZoneSize))
         {
-            moveZ = maxMoveSpeed;
+            move = maxMoveSpeed;
         }
 
-        Vector3 movement = new Vector3(moveX, 0, moveZ);
+        return move;
+    }
 
+    private void ApplyMovement(Vector3 movement)
+    {
         Vector3 newPosition = transform.position + movement * Time.deltaTime;
 
         newPosition.x = Mathf.Clamp(newPosition.x, xBoundary.x, xBoundary.y);
         newPosition.z = Mathf.Clamp(newPosition.z, zBoundary.x, zBoundary.y);
 
         transform.position = newPosition;
+    }
 
+    public void EnableMovement()
+    {
+        isMovementEnabled = true;
+    }
+
+    public void DisableMovement()
+    {
+        isMovementEnabled = false;
     }
 }
